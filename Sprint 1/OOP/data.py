@@ -1,9 +1,9 @@
 """
-Modul: streckendaten.py
+Modul: data.py
 Beschreibung: Erstellt die konkreten Objekte für unser U-Bahn-Netz.
 """
 # Wir brauchen unsere neuen Klassen
-from strecken_modell import Strecke
+from models import Strecke
 
 # Die Konfiguration (Takt) bleibt ein einfaches Dictionary (das ist okay so)
 TAKT_KONFIGURATION = {

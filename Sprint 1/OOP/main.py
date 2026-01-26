@@ -5,7 +5,7 @@ Hier nutzen wir jetzt das Strecken-Objekt statt der losen Funktionen.
 """
 
 # Wir importieren die Konfiguration UND unsere neue "Bau-Funktion"
-from streckendaten import TAKT_KONFIGURATION, erstelle_demo_strecke
+from data import TAKT_KONFIGURATION, erstelle_demo_strecke
 
 # utils ist nur noch für Helfer-Tools (Zeit/Validierung) da
 import utils

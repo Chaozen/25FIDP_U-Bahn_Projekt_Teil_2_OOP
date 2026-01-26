@@ -1,5 +1,5 @@
 """
-Modul: strecken_modell.py
+Modul: models.py
 Beschreibung: Definition der Klassen (Baupläne) für Stationen und das Netz.
 """
 
