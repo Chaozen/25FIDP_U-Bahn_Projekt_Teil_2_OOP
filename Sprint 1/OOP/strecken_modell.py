@@ -4,6 +4,7 @@ Beschreibung: Definition der Klassen (Baupläne) für Stationen und das Netz.
 """
 
 
+
 class Station:
     """Repräsentiert einen einzelnen Haltepunkt."""
 
