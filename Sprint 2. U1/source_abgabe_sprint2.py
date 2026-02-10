@@ -18,7 +18,7 @@ class LinieU1:
         if station.name in self.hauptknoten:
             return 1.0
         if station.name in self.endstationen:
-            return 1.0
+            return 0.5 # 0.5 in each direction, so 1.0 after change of direction.
         return 0.5
 
     def generiere_fahrplan(self):
@@ -36,7 +36,7 @@ class LinieU1:
                     zeit += station.fahrzeit_zur_naechsten
 
             # Wendezeit
-            # zeit += 1.0 # todo : zeit 0 oder 1 (0 ist OK, Sven hat getestet)
+            # zeit += 1.0 # todo : OK. zeit 0 oder 1 (0 ist OK, Sven hat getestet).
 
             # ------------------
             # Rückfahrt (-1)
@@ -68,15 +68,25 @@ class LinieU1:
         richtung = 1 if indices[ziel] > indices[start] else -1
 
         # nur Abfahrten mit passender Richtung UND Zeit >= Wunschzeit
-        kandidaten = [
+        kandidaten_heute = [
             zeit for zeit, r in fahrplan[start]
             if r == richtung and zeit >= wunsch
         ]
 
-        if not kandidaten:
-            raise ValueError("Keine Bahn mehr heute.")
+        if kandidaten_heute:
+            beste = min(kandidaten_heute)
+        else:
+            # 2. Versuch: nächster Betriebstag (ab Startzeit)
+            kandidaten_morgen = [
+                zeit for zeit, r in fahrplan[start]
+                if r == richtung and zeit >= self.startzeit
+            ]
 
-        beste = min(kandidaten)
+            if not kandidaten_morgen:
+                raise ValueError("Keine Bahn verfügbar.")
+
+            beste = min(kandidaten_morgen)
+
         return f"{int(beste // 60):02d}:{int(beste % 60):02d}"
 
 
@@ -110,11 +120,14 @@ u1_daten = [
     ("Muggenhof", 3),
     ("Stadtgrenze", 2),
     ("Jakobinenstraße", 3),
-    ("Fürth Hbf", 0)
+    ("Fürth Hbf", 0) # todo: OK. Hbf mit "." --> Hbf.
 ]
 # c = Jakobinenstraße
 # d = Fürth Hbf
-
+# todo: OK. 3. Richtungswechsel Fürth Hbf. Stadtgrenze 05:45 06:00 Uhr. 1 minute later, why? (see todo 5.) 0.5 in each direction, so 1.0 after change of direction.
+# todo: OK. 4. 1 minute later, why? See todo 3.
+# todo: OK. 5. (1 minute later, why? --> hypothesis: two time counted 1 minute in endstation, because every richtung count one?). See todo 3.
+# todo: OK. 6. Keine Bahn mehr heute., soll 05:14.Corrected with kandidaten heute und morgen, in def naechste_abfahrt
 
 stationen = [Station(name, zeit) for name, zeit in u1_daten]
 u1 = LinieU1(stationen)
