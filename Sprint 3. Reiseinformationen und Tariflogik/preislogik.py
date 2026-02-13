@@ -29,22 +29,22 @@ class PreisLogik:
         else:
             return "Langstrecke"
 
-    def berechne_preis(self, ticket_typ, ermaessigung="Nein", barzahlung="Nein", einzelfahrt="Nein"):
+    def berechne_preis(self, ticket_typ, ermaessigung="nein", barzahlung="nein", einzelfahrt="nein"):
         """Berechnet den endgültigen Preis basierend auf der Wahl"""
 
         # Wahl der Preisliste
-        if einzelfahrt == "Ja":
+        if einzelfahrt == "ja":
             grundpreis = self.PREISE_EINZEL[ticket_typ]
         else:
             grundpreis = self.PREISE_MEHRFAHRT[ticket_typ]
 
         prozent_summe = 0
 
-        if ermaessigung == "Ja":
+        if ermaessigung == "ja":
             prozent_summe -= 20
-        if barzahlung == "Ja":
+        if barzahlung == "ja":
             prozent_summe += 15
-        if einzelfahrt == "Ja":
+        if einzelfahrt == "ja":
             prozent_summe += 10
 
         # Anwendung der Summe auf den Grundpreis

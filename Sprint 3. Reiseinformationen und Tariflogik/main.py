@@ -51,9 +51,9 @@ def main():
     zeit = input("Früheste Abfahrtszeit (HH:MM): ")
 
 
-    ermaessigung = input("Ermäßigung (Ja/Nein): ")
-    barzahlung = input("Barzahlung (Ja/Nein): ")
-    einzelfahrt = input("Einzelfahrt (Ja/Nein): ")
+    ermaessigung = input("Ermäßigung (Ja/Nein): ").lower()
+    barzahlung = input("Barzahlung (Ja/Nein): ").lower()
+    einzelfahrt = input("Einzelfahrt (Ja/Nein): ").lower()
 
     try:
         # ----------------------------
