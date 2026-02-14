@@ -31,7 +31,7 @@ u1_daten = [
     ("Muggenhof", 3),
     ("Stadtgrenze", 2),
     ("Jakobinenstraße", 3),
-    ("Fürth Hbf.", 0)
+    ("Fürth Hauptbahnhof", 0)
 ]
 
 stationen = [Station(name, zeit) for name, zeit in u1_daten]
