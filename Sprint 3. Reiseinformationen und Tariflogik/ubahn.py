@@ -37,7 +37,6 @@ class LinieU1:
 
             # --- Rückfahrt ---
             # Startzeit der Rückfahrt ist Ankunft Hinfahrt + Wendezeit (z.B. 1 Min)
-            zeit += 0.5
             for i in range(len(self.stationen) - 1, -1, -1):
                 station = self.stationen[i]
                 fahrplan[station.name].append((zeit, -1))
