@@ -1,7 +1,4 @@
-class Station:
-    def __init__(self, name, fahrzeit_zur_naechsten):
-        self.name = name
-        self.fahrzeit_zur_naechsten = fahrzeit_zur_naechsten  # Minuten
+from ubahn import Stationen
 
 
 # ----------------------------
@@ -34,4 +31,4 @@ u1_daten = [
     ("Fürth Hauptbahnhof", 0)
 ]
 
-stationen = [Station(name, zeit) for name, zeit in u1_daten]
+stationen = [Stationen(name, zeit) for name, zeit in u1_daten]
