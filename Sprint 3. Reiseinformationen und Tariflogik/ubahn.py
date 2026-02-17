@@ -1,4 +1,4 @@
-class Station:
+class Stationen:
     def __init__(self, name, fahrzeit_zur_naechsten):
         self.name = name
         self.fahrzeit_zur_naechsten = fahrzeit_zur_naechsten  # Minuten
@@ -37,7 +37,7 @@ class LinieU1:
 
             # --- Rückfahrt ---
             # Startzeit der Rückfahrt ist Ankunft Hinfahrt + Wendezeit (z.B. 1 Min)
-            zeit += 1.0
+            zeit += 0.5
             for i in range(len(self.stationen) - 1, -1, -1):
                 station = self.stationen[i]
                 fahrplan[station.name].append((zeit, -1))
@@ -70,6 +70,28 @@ class LinieU1:
 
         return float(min(kandidaten))
 
+    # def ankunftszeit(self, start, ziel, abfahrtszeit):
+    #     indices = {s.name: i for i, s in enumerate(self.stationen)}
+    #     start_i = indices[start]
+    #     ziel_i = indices[ziel]
+    #
+    #     zeit = float(abfahrtszeit)
+    #     schritt = 1 if ziel_i > start_i else -1
+    #     i = start_i
+    #
+    #     # Keine Haltezeit an Startstation
+    #     while i != ziel_i:
+    #         naechste = i + schritt
+    #         if schritt == 1:
+    #             zeit += self.stationen[i].fahrzeit_zur_naechsten
+    #         else:
+    #             zeit += self.stationen[naechste].fahrzeit_zur_naechsten
+    #
+    #         # Haltezeit an der Ziel-Zwischenstation
+    #         zeit += self.haltezeit(self.stationen[naechste])
+    #         i = naechste
+    #
+    #     return float(zeit)
     def ankunftszeit(self, start, ziel, abfahrtszeit):
         indices = {s.name: i for i, s in enumerate(self.stationen)}
         start_i = indices[start]
@@ -79,16 +101,21 @@ class LinieU1:
         schritt = 1 if ziel_i > start_i else -1
         i = start_i
 
-        # Keine Haltezeit an Startstation
         while i != ziel_i:
             naechste = i + schritt
+
+            # 1. Fahrzeit addieren (das ist die Zeit AUF der Schiene)
             if schritt == 1:
                 zeit += self.stationen[i].fahrzeit_zur_naechsten
             else:
                 zeit += self.stationen[naechste].fahrzeit_zur_naechsten
 
-            # Haltezeit an der Ziel-Zwischenstation
-            zeit += self.haltezeit(self.stationen[naechste])
+            # Wir sind jetzt an der Station 'naechste' angekommen.
             i = naechste
+
+            # 2. KORREKTUR: Haltezeit nur addieren, wenn dies NICHT das Ziel ist.
+            # Wenn wir am Ziel sind, steigen wir aus -> keine Wartezeit mehr für die Berechnung.
+            if i != ziel_i:
+                zeit += self.haltezeit(self.stationen[i])
 
         return float(zeit)
