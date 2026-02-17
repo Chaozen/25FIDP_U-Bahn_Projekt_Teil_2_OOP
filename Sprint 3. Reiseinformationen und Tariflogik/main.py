@@ -69,18 +69,19 @@ def main():
         # ----------------------------
         # Formatieren in HH:MM
         # ----------------------------
-       # abfahrt_str = f"{int(abfahrt_min // 60):02d}:{int(abfahrt_min % 60):02d}"
-        #ankunft_str = f"{int(ankunft_min // 60):02d}:{int(ankunft_min % 60):02d}"
+        ankunft_rund = int(ankunft_min + 0.5)
+        abfahrt_str = f"{int(abfahrt_min // 60):02d}:{int(abfahrt_min % 60):02d}"
+        ankunft_str = f"{int(ankunft_rund // 60):02d}:{int(ankunft_rund % 60):02d}"
 
         # ----------------------------
-        # Formatieren in HH:MM:SS
+        # Formatieren in HH:MM:SS für TESTzwecke
         # ----------------------------
         # Wir holen uns den Nachkommateil der Minuten (z.B. 0.5) und rechnen ihn mal 60
-        abfahrt_sekunden = int((abfahrt_min % 1) * 60)
-        ankunft_sekunden = int((ankunft_min % 1) * 60)
-
-        abfahrt_str = f"{int(abfahrt_min // 60):02d}:{int(abfahrt_min % 60):02d}:{abfahrt_sekunden:02d}"
-        ankunft_str = f"{int(ankunft_min // 60):02d}:{int(ankunft_min % 60):02d}:{ankunft_sekunden:02d}"
+        # abfahrt_sekunden = int((abfahrt_min % 1) * 60)
+        # ankunft_sekunden = int((ankunft_min % 1) * 60)
+        #
+        # abfahrt_str = f"{int(abfahrt_min // 60):02d}:{int(abfahrt_min % 60):02d}:{abfahrt_sekunden:02d}"
+        # ankunft_str = f"{int(ankunft_min // 60):02d}:{int(ankunft_min % 60):02d}:{ankunft_sekunden:02d}"
 
         # ----------------------------
         # Ticket & Preis berechnen
